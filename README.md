@@ -21,7 +21,6 @@ Application pour gérer des biens immobiliers.
 - admin@gestloc.com / admin123
 
 ## Équipe
-- Aissata
-- Birago
-- Colle
-- etc.
+- ROKHAYA FALL
+- NDEYE KEWE NDIAYE
+- AISSATOU SOW
