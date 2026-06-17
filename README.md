@@ -20,7 +20,7 @@ Application pour gérer des biens immobiliers.
 ## Comptes de test
 - admin@gestloc.com / admin123
 
-## Équipe GROUPE 6
+## GROUPE 6
 - ROKHAYA FALL
 - NDEYE KEWE NDIAYE
 - AISSATOU SOW
