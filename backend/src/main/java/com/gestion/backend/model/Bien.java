@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import  com.gestion.backend.model.StatutBien;
 
 @Entity
 @Table(name = "bien")
@@ -30,11 +29,14 @@ public class Bien {
     private BigDecimal caution;
 
     @Enumerated(EnumType.STRING)
-    private StatutBien statut;  // ← Maintenant importé depuis son propre fichier
+    private StatutBien statut;
 
     private LocalDate dateCreation;
 
     @ManyToOne
     @JoinColumn(name = "proprietaire_id")
     private Utilisateur proprietaire;
+
+    @Transient
+    private Long proprietaireId;
 }

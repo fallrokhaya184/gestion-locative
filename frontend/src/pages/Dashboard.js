@@ -15,8 +15,7 @@ function Dashboard() {
             return;
         }
         setUser(JSON.parse(userData));
-        
-        // Charger les statistiques
+
         const fetchStats = async () => {
             try {
                 const [biensRes, usersRes] = await Promise.all([
@@ -41,17 +40,11 @@ function Dashboard() {
         navigate('/connexion');
     };
 
-    if (loading) {
-        return <div style={{ textAlign: 'center', padding: '50px' }}>Chargement...</div>;
-    }
-
-    if (!user) {
-        return <div>Veuillez vous connecter</div>;
-    }
+    if (loading) return <div style={{ textAlign: 'center', padding: '50px', color: '#999' }}>Chargement...</div>;
+    if (!user) return <div>Veuillez vous connecter</div>;
 
     return (
         <div>
-            {/* En-tête */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -60,17 +53,22 @@ function Dashboard() {
                 flexWrap: 'wrap'
             }}>
                 <div>
-                    <h2 style={{ fontSize: '2rem', fontWeight: '700', margin: 0 }}>
+                    <h2 style={{
+                        fontSize: '1.8rem',
+                        fontWeight: '300',
+                        margin: 0,
+                        color: '#1a1a2e'
+                    }}>
                         👋 Bonjour, {user.prenom} {user.nom}
                     </h2>
-                    <p style={{ color: '#666', margin: '5px 0 0' }}>
+                    <p style={{ color: '#999', margin: '4px 0 0', fontSize: '0.9rem' }}>
                         Rôle : <span style={{
-                            background: user.role === 'admin' ? '#667eea' : '#4facfe',
-                            color: 'white',
+                            background: '#f5f0eb',
+                            color: '#555',
                             padding: '2px 14px',
                             borderRadius: '50px',
-                            fontSize: '0.85rem',
-                            fontWeight: '600'
+                            fontSize: '0.8rem',
+                            fontWeight: '500'
                         }}>{user.role}</span>
                     </p>
                 </div>
@@ -78,66 +76,69 @@ function Dashboard() {
                     onClick={handleLogout}
                     style={{
                         background: 'transparent',
-                        border: '2px solid #dc3545',
-                        color: '#dc3545',
+                        border: '1px solid #e0d8d0',
+                        color: '#888',
                         padding: '8px 24px',
                         borderRadius: '50px',
-                        fontWeight: '600',
+                        fontSize: '0.85rem',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease'
                     }}
                     onMouseEnter={(e) => {
-                        e.target.style.background = '#dc3545';
+                        e.target.style.background = '#1a1a2e';
                         e.target.style.color = 'white';
+                        e.target.style.borderColor = '#1a1a2e';
                     }}
                     onMouseLeave={(e) => {
                         e.target.style.background = 'transparent';
-                        e.target.style.color = '#dc3545';
+                        e.target.style.color = '#888';
+                        e.target.style.borderColor = '#e0d8d0';
                     }}
                 >
-                    🚪 Déconnexion
+                    Déconnexion
                 </button>
             </div>
 
-            {/* Statistiques */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                gap: '20px',
-                marginBottom: '30px'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: '20px'
             }}>
                 <div style={{
-                    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                    background: 'white',
                     borderRadius: '16px',
-                    padding: '25px',
-                    color: 'white'
+                    padding: '24px',
+                    boxShadow: '0 2px 20px rgba(0,0,0,0.04)',
+                    border: '1px solid #f0ebe6'
                 }}>
-                    <p style={{ margin: 0, opacity: 0.8 }}>🏠 Total des biens</p>
-                    <h2 style={{ fontSize: '2.5rem', fontWeight: '700', margin: '5px 0 0' }}>
+                    <p style={{ color: '#999', margin: 0, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Biens</p>
+                    <p style={{ fontSize: '2.2rem', fontWeight: '300', color: '#1a1a2e', margin: '4px 0 0' }}>
                         {stats.biens}
-                    </h2>
+                    </p>
                 </div>
                 <div style={{
-                    background: 'linear-gradient(135deg, #4facfe, #00f2fe)',
+                    background: 'white',
                     borderRadius: '16px',
-                    padding: '25px',
-                    color: 'white'
+                    padding: '24px',
+                    boxShadow: '0 2px 20px rgba(0,0,0,0.04)',
+                    border: '1px solid #f0ebe6'
                 }}>
-                    <p style={{ margin: 0, opacity: 0.8 }}>👥 Locataires</p>
-                    <h2 style={{ fontSize: '2.5rem', fontWeight: '700', margin: '5px 0 0' }}>
+                    <p style={{ color: '#999', margin: 0, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Locataires</p>
+                    <p style={{ fontSize: '2.2rem', fontWeight: '300', color: '#1a1a2e', margin: '4px 0 0' }}>
                         {stats.locataires}
-                    </h2>
+                    </p>
                 </div>
                 <div style={{
-                    background: 'linear-gradient(135deg, #43e97b, #38f9d7)',
+                    background: 'white',
                     borderRadius: '16px',
-                    padding: '25px',
-                    color: '#1a1a2e'
+                    padding: '24px',
+                    boxShadow: '0 2px 20px rgba(0,0,0,0.04)',
+                    border: '1px solid #f0ebe6'
                 }}>
-                    <p style={{ margin: 0, opacity: 0.7 }}>📊 Taux d'occupation</p>
-                    <h2 style={{ fontSize: '2.5rem', fontWeight: '700', margin: '5px 0 0' }}>
+                    <p style={{ color: '#999', margin: 0, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Occupation</p>
+                    <p style={{ fontSize: '2.2rem', fontWeight: '300', color: '#1a1a2e', margin: '4px 0 0' }}>
                         {stats.biens > 0 ? Math.round((stats.locataires / stats.biens) * 100) : 0}%
-                    </h2>
+                    </p>
                 </div>
             </div>
         </div>

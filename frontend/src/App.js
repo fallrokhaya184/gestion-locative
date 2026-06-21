@@ -6,6 +6,8 @@ import Accueil from './pages/Accueil';
 import Biens from './pages/Biens';
 import Connexion from './pages/Connexion';
 import Dashboard from './pages/Dashboard';
+import Inscription from './pages/Inscription';
+import AjouterBien from './pages/AjouterBien';
 
 function App() {
     return (
@@ -22,6 +24,8 @@ function App() {
                         <Route path="/biens" element={<Biens />} />
                         <Route path="/connexion" element={<Connexion />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/inscription" element={<Inscription />} />
+                        <Route path="/ajouter-bie" element={<AjouterBien/>}/>
                     </Routes>
                 </div>
             </div>

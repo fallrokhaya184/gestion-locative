@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;  // ← AJOUTER CET IMPORT
 import java.util.List;
 
 @RestController
@@ -45,9 +46,21 @@ public class UtilisateurController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou mot de passe incorrect");
         }
     }
+
+    @PostMapping("/inscription")
+    public ResponseEntity<?> inscription(@RequestBody Utilisateur utilisateur) {
+        // Vérifier si l'email existe déjà
+        if (utilisateurRepository.findByEmail(utilisateur.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().body("Email déjà utilisé");
+        }
+
+        utilisateur.setDateInscription(LocalDate.now());
+        Utilisateur saved = utilisateurRepository.save(utilisateur);
+        return ResponseEntity.ok(saved);
+    }
 }
 
-// ⚠️ LoginRequest est défini ICI si tu n'as pas de fichier séparé
+// LoginRequest
 class LoginRequest {
     private String email;
     private String motDePasse;

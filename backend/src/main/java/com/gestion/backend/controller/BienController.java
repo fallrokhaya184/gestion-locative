@@ -1,6 +1,9 @@
 package com.gestion.backend.controller;
 
 import com.gestion.backend.model.Bien;
+import com.gestion.backend.model.Utilisateur;
+import com.gestion.backend.model.StatutBien;
+import com.gestion.backend.repository.UtilisateurRepository;
 import com.gestion.backend.service.BienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,8 +15,12 @@ import java.util.List;
 @RequestMapping("/api/biens")
 @CrossOrigin(origins = "http://localhost:3000")
 public class BienController {
+
     @Autowired
     private BienService bienService;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
 
     @GetMapping
     public List<Bien> getAllBiens() {
@@ -33,6 +40,11 @@ public class BienController {
 
     @PostMapping
     public ResponseEntity<Bien> createBien(@RequestBody Bien bien) {
+        // Récupérer le propriétaire via son ID
+        if (bien.getProprietaireId() != null) {
+            Utilisateur proprietaire = utilisateurRepository.findById(bien.getProprietaireId()).orElse(null);
+            bien.setProprietaire(proprietaire);
+        }
         Bien nouveauBien = bienService.createBien(bien);
         return new ResponseEntity<>(nouveauBien, HttpStatus.CREATED);
     }
